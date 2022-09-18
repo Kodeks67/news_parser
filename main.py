@@ -4,14 +4,14 @@ import pandas as pd
 import datetime
 
 URL_TEMPLATE = "https://lenta.ru/parts/news/"
-FILE_NAME = "test.csv"
+FILE_NAME = "test.txt"
 
 
 def parse(url=URL_TEMPLATE):
     r = requests.get(url)
     soup = bs(r.text, "html.parser")
     news_collections = soup.find_all('a', class_='card-full-news _parts-news')
-    result_list = []
+    result_list = {'Новости и дата публикации': []}
     now = datetime.date.today()
 
     for element in news_collections:
@@ -21,11 +21,13 @@ def parse(url=URL_TEMPLATE):
         if time_news.find(',') == -1:
             time_news = time_news + ' ' + str(now)
             news_str = elem.text + ' ' + time_news
-            result_list.append(news_str)
+            result_list['Новости и дата публикации'].append(news_str)
 
-    print(result_list)
+    return result_list
 
-df = pd.DataFrame(data=parse())
+df = pd.DataFrame(data=parse(URL_TEMPLATE))
 df.to_csv(FILE_NAME)
+# pd.read_csv('C:/Users/123/PycharmProjects/news_parser/test.txt', 'w', header=None, skiprows=[0])
+# pd.read_csv(r'C:/Users/123/PycharmProjects/news_parser/test.csv', header=None, skiprows=[0])
 
-parse(URL_TEMPLATE)
+# parse(URL_TEMPLATE)
