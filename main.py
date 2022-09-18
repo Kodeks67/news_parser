@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 import pandas as pd
 import datetime
+import os.path
 
 URL_TEMPLATE = "https://lenta.ru/parts/news/"
 FILE_NAME = "test.txt"
@@ -26,7 +27,14 @@ def parse(url=URL_TEMPLATE):
     return result_list
 
 df = pd.DataFrame(data=parse(URL_TEMPLATE))
-df.to_csv(FILE_NAME)
+# if os.path.exists(FILE_NAME):
+#     old_df = pd.read_csv(FILE_NAME)
+#     new_df = pd.concat([old_df, df])
+#     new_df.drop_duplicates(subset='', keep='first')
+#     new_df.to_csv(FILE_NAME, mode='a', header=False)
+#
+# else:
+df.to_csv(FILE_NAME, header=False)
 # pd.read_csv('C:/Users/123/PycharmProjects/news_parser/test.txt', 'w', header=None, skiprows=[0])
 # pd.read_csv(r'C:/Users/123/PycharmProjects/news_parser/test.csv', header=None, skiprows=[0])
 
