@@ -18,15 +18,10 @@ def parse(url=URL_TEMPLATE):
         elem = element.h3
         div_elem = element.div
         time_news = div_elem.time.text
-        if time_news.find(',') != -1:
-            time_news = time_news + ' ' + now
-        news_str = elem.text + ' ' + time_news
-        result_list.append(news_str)
-        print(news_str)
-        # result_list['news'].append(elem.text)
-        # result_list['date'].append(time_news)
-    #   print(news)
-    # news_data_list.append(news)
+        if time_news.find(',') == -1:
+            time_news = time_news + ' ' + str(now)
+            news_str = elem.text + ' ' + time_news
+            result_list.append(news_str)
 
     print(result_list)
 
