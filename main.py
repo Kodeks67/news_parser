@@ -25,9 +25,7 @@ def parse(url=URL_TEMPLATE):
 
     return result_list
 
-df = pd.DataFrame(data=parse(URL_TEMPLATE))
-df.to_csv(FILE_NAME)
-# pd.read_csv('C:/Users/123/PycharmProjects/news_parser/test.txt', 'w', header=None, skiprows=[0])
-# pd.read_csv(r'C:/Users/123/PycharmProjects/news_parser/test.csv', header=None, skiprows=[0])
 
-# parse(URL_TEMPLATE)
+df = pd.DataFrame(data=parse(URL_TEMPLATE))
+df.to_csv(FILE_NAME, header=False)
+
